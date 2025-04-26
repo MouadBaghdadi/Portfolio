@@ -1,22 +1,21 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { Button } from "../components/ui/button";
-import { ModeToggle } from "./mode-toggle";
-import { Menu, X } from 'lucide-react';
-import React from "react";
+import { useState, useEffect } from "react"
+import { Button } from "./ui/button"
+import { ModeToggle } from "./mode-toggle"
+import { Menu, X } from "lucide-react"
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const navLinks = [
     { name: "Projects", href: "#projects" },
@@ -24,14 +23,12 @@ const Navbar = () => {
     { name: "Experience", href: "#experience" },
     { name: "Education", href: "#education" },
     { name: "Contact", href: "#contact" },
-  ];
+  ]
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md py-2 shadow-md"
-          : "bg-transparent py-4"
+        isScrolled ? "bg-background/80 backdrop-blur-md py-2 shadow-md" : "bg-transparent py-4"
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -42,11 +39,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-foreground/80 hover:text-primary transition-colors"
-            >
+            <a key={link.name} href={link.href} className="text-foreground/80 hover:text-primary transition-colors">
               {link.name}
             </a>
           ))}
@@ -93,7 +86,7 @@ const Navbar = () => {
         </div>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

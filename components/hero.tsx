@@ -1,27 +1,25 @@
-"use client";
+"use client"
 
-import { useEffect, useRef } from "react";
-import { Button } from "../components/ui/button";
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
-import { TypeAnimation } from "react-type-animation";
-import React from "react";
+import { useEffect, useRef } from "react"
+import { Button } from "./ui/button"
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react"
 
 const Hero = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
 
-    const nodes: { x: number; y: number; vx: number; vy: number }[] = [];
-    const nodeCount = 50;
-    const connectionDistance = 100;
+    const nodes: { x: number; y: number; vx: number; vy: number }[] = []
+    const nodeCount = 50
+    const connectionDistance = 100
 
     // Create nodes
     for (let i = 0; i < nodeCount; i++) {
@@ -30,93 +28,76 @@ const Hero = () => {
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
-      });
+      })
     }
 
     const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
       // Update and draw nodes
       for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        
+        const node = nodes[i]
+
         // Update position
-        node.x += node.vx;
-        node.y += node.vy;
-        
+        node.x += node.vx
+        node.y += node.vy
+
         // Bounce off edges
-        if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-        if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-        
+        if (node.x < 0 || node.x > canvas.width) node.vx *= -1
+        if (node.y < 0 || node.y > canvas.height) node.vy *= -1
+
         // Draw node
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, 1, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(99, 102, 241, 0.5)";
-        ctx.fill();
-        
+        ctx.beginPath()
+        ctx.arc(node.x, node.y, 1, 0, Math.PI * 2)
+        ctx.fillStyle = "rgba(99, 102, 241, 0.5)"
+        ctx.fill()
+
         // Draw connections
         for (let j = i + 1; j < nodes.length; j++) {
-          const otherNode = nodes[j];
-          const dx = otherNode.x - node.x;
-          const dy = otherNode.y - node.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
+          const otherNode = nodes[j]
+          const dx = otherNode.x - node.x
+          const dy = otherNode.y - node.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
+
           if (distance < connectionDistance) {
-            ctx.beginPath();
-            ctx.moveTo(node.x, node.y);
-            ctx.lineTo(otherNode.x, otherNode.y);
-            ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distance / connectionDistance})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+            ctx.beginPath()
+            ctx.moveTo(node.x, node.y)
+            ctx.lineTo(otherNode.x, otherNode.y)
+            ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distance / connectionDistance})`
+            ctx.lineWidth = 0.5
+            ctx.stroke()
           }
         }
       }
-      
-      requestAnimationFrame(animate);
-    };
 
-    animate();
+      requestAnimationFrame(animate)
+    }
+
+    animate()
 
     const handleResize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+    }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   return (
     <section id="home" className="pt-24 pb-16 md:pt-32 md:pb-24 relative">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-20"
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-20" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-400">
             Mouad Baghdadi
           </h1>
           <div className="text-xl md:text-2xl font-medium text-foreground/80 mb-8 h-12">
-            <TypeAnimation
-              sequence={[
-                "AI Engineer",
-                1000,
-                "Machine Learning Specialist",
-                1000,
-                "Data Scientist",
-                1000,
-                "Intelligent Systems Developer",
-                1000,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-            />
+            <span>AI Engineer & Machine Learning Specialist</span>
           </div>
           <p className="text-lg md:text-xl text-foreground/70 mb-10 max-w-2xl mx-auto">
-            Transforming complex data into intelligent solutions. Specializing in machine learning, 
-            deep learning, and AI systems that solve real-world problems.
+            Transforming complex data into intelligent solutions. Specializing in machine learning, deep learning, and
+            AI systems that solve real-world problems.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button asChild size="lg" className="w-full sm:w-auto">
@@ -147,10 +128,7 @@ const Hero = () => {
               <Linkedin className="h-6 w-6" />
               <span className="sr-only">LinkedIn</span>
             </a>
-            <a
-              href="mailto:kmbaghdadi@esi.dz"
-              className="text-foreground/70 hover:text-primary transition-colors"
-            >
+            <a href="mailto:kmbaghdadi@esi.dz" className="text-foreground/70 hover:text-primary transition-colors">
               <Mail className="h-6 w-6" />
               <span className="sr-only">Email</span>
             </a>
@@ -158,7 +136,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

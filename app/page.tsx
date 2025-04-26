@@ -1,13 +1,14 @@
-import Navbar from "../components/navbar";
-import Hero from "../components/hero";
-import Projects from "../components/projects";
-import Skills from "../components/skills";
-import Experience from "../components/experience";
-import Education from "../components/education";
-import Contact from "../components/contact";
-import Footer from "../components/footer";
-import ParticleBackground from "../components/particle-background";
-import React from "react";
+"use client"
+
+import Navbar from "../components/navbar"
+import Hero from "../components/hero"
+import Projects from "../components/projects"
+import Skills from "../components/skills"
+import Experience from "../components/experience"
+import Education from "../components/education"
+import Contact from "../components/contact"
+import Footer from "../components/footer"
+import ParticleBackground from "../components/particle-background"
 
 export default function Home() {
   return (
@@ -24,5 +25,5 @@ export default function Home() {
         <Footer />
       </div>
     </main>
-  );
+  )
 }
